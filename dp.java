@@ -1,5 +1,7 @@
 package Dynamic_Prog;
 
+import java.util.Arrays;
+
 public class dp {
     // Fibonaci code by DP -> Memoization method (Top To Bottom)
     public static int fib(int n, int f[]){
@@ -29,10 +31,24 @@ public class dp {
 
         return climbways(n-1) + climbways(n-2);
     }
+    // ClimBing Starirs by Memoization ->
+    public static int climbwaysMemo(int n , int ways[]){
+        if(n==0) return 1;
+        if(n< 0) return 0;
+
+        if(ways[n] != -1){
+            return ways[n];
+        }
+        ways[n] = climbwaysMemo(n-1, ways) + climbwaysMemo(n-2, ways);
+        return ways[n];
+    }
     public static void main(String[] args) {
-        int n=8;
+        int n=5;
         int f[] = new int[n+1];
         // System.out.println(fib(n, f));
-        System.out.println(climbways(5));
+        // System.out.println(climbways(5));
+        int ways[ ] = new int[n+1];
+        Arrays.fill(ways, -1);
+        System.out.println(climbwaysMemo(n, ways));
     }
 }
