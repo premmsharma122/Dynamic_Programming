@@ -90,6 +90,27 @@ public class dp {
             return dp[n][w];
         }
     }
+    // Knapsack Code by Tabulation -> Time Com. : O(N)
+    public static int knapsackTab(int val[], int wt[], int W){
+        int n = val.length;
+        int dp[][] = new int[n+1][W+1];
+        for(int i=1; i<n+1; i++){
+            for(int j=1; j<W+1; j++){
+                int v = val[i-1]; // ith value
+                int w = wt[i-1];  // ith wight
+                if(w <= j){ // valid
+                    int include = v + dp[i-1][j-w];
+                    int exclude = dp[i-1][j];
+                    dp[i][j] = Math.max(include, exclude);
+                } else{ // invalid
+                    int exclude = dp[i-1][j];
+                    dp[i][j] = exclude;
+
+                }
+            }
+        }
+        return dp[n][W];
+    }
     public static void main(String[] args) {
         int n=5;
         int f[] = new int[n+1];
@@ -108,7 +129,8 @@ public class dp {
                 dp[i][j]= -1;
             }
         }
+        System.out.println("Tab "+knapsackTab( val, wt, w));
         //System.out.println(knapsack(val, wt, w, val.length));
-        System.out.println(knapsackMemo(val, wt, w, val.length, dp));
+        // System.out.println(knapsackMemo(val, wt, w, val.length, dp));
     }
 }
