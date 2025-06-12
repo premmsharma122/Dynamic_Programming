@@ -111,6 +111,8 @@ public class dp {
         }
         return dp[n][W];
     }
+    // UnBounded Knapsack Code ->
+    
     public static void main(String[] args) {
         int n=5;
         int f[] = new int[n+1];
