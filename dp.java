@@ -112,6 +112,22 @@ public class dp {
         return dp[n][W];
     }
     // UnBounded Knapsack Code ->
+    public static int unboundedKnap(int val[], int wt[], int W, int dp[][]) {
+    int n = val.length;
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j <= W; j++) {
+            if (j >= wt[i - 1]) {
+                dp[i][j] = Math.max(val[i - 1] + dp[i][j - wt[i - 1]], dp[i - 1][j]);
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+
+    return dp[n][W];
+}
+
     
     public static void main(String[] args) {
         int n=5;
@@ -131,7 +147,8 @@ public class dp {
                 dp[i][j]= -1;
             }
         }
-        System.out.println("Tab "+knapsackTab( val, wt, w));
+        // System.out.println("Tab "+knapsackTab( val, wt, w));
+        System.out.println(unboundedKnap(val, wt, w, dp));
         //System.out.println(knapsack(val, wt, w, val.length));
         // System.out.println(knapsackMemo(val, wt, w, val.length, dp));
     }
