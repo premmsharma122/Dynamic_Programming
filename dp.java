@@ -202,6 +202,36 @@ public static int coinChange(int coins[], int sum, int dp[][]){
         }
         return ans;
     }
+     //Edit Distance (Memoization)
+    public static int editDis(String s1, String s2){
+        int n = s1.length(), m = s2.length();
+        int dp[][] = new int[n+1][m+1];
+        //Initilization...
+        for(int i=0; i<n+1; i++){
+            for(int j=0; j<m+1; j++){
+                if(i==0){
+                    dp[i][i] = j;
+                }
+                if(j==0){
+                    dp[i][j] = i;
+                }
+            }
+        }
+         for(int i=0; i<n+1; i++){
+            for(int j=0; j<m+1; j++){
+                if(s1.charAt(i) == s2.charAt(j)){ // same characters
+                    dp[i][j] = dp[i-1][j-1];
+                }else{  // different characters
+                    int add = dp[i][j-1]+1;
+                    int del = dp[i-1][j]+1;
+                    int rem = dp[i-1][j-1]+1;
+                    dp[i][j] = Math.min(add, Math.min(del,rem));
+                }
+            }
+        }
+        return dp[n][m];
+    }
+   
     public static void main(String[] args) {
         int n=5;
         int f[] = new int[n+1];
