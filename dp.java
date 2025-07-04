@@ -271,6 +271,21 @@ public static int coinChange(int coins[], int sum, int dp[][]){
         }
         return ans;
      }
+    //  Catelans Number Code By Memoization ->
+     public static int catelnMemo(int n , int dp[]){
+        if(n==0 || n==1) return 1;
+        int ans =0;
+        dp[0] =0;
+        //Intilize dp with -1 values in your code....
+        if(dp[n] != -1){
+            return dp[n];
+        }
+        for(int i=0; i<n; i++){
+            dp[i] = catelnMemo(i, dp) * catelnMemo(n-i-1, dp);
+        }
+        return dp[n] = ans;
+     }
+    
     
     public static void main(String[] args) {
         int n=5;
