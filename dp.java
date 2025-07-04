@@ -231,7 +231,38 @@ public static int coinChange(int coins[], int sum, int dp[][]){
         }
         return dp[n][m];
     }
-   
+    // WildCard Matching (Hard Question ) 
+     public static boolean isMatch(String s, String pattern){
+        int n = s.length(), m = pattern.length();
+        boolean dp[][] = new boolean[n+1][m+1];
+        //Intilization..
+        dp[0][0] = true;
+        for(int i=1; i<n+1; i++){ // iterate over first column values
+            dp[i][0] = false;
+        }
+
+        for(int j=1; j<m+1; j++){
+            if(pattern.charAt(j-1) == '*'){
+                dp[0][j] = dp[0][j-1];
+            }
+        }
+
+        //bottum up code 
+        for(int i=1; i<n+1; i++){
+            for(int j=1; j<m+1; j++){
+                //case 1 -> ith char == jth char || jth char == '?'
+                if(s.charAt(i-1) == pattern.charAt(j-1) || pattern.charAt(j-1) == '?'){
+                    dp[i][j] = dp[i][j-1];
+                }else if(pattern.charAt(j-1) == '*'){
+                    dp[i][j] = dp[i-1][j] || dp[i][j-1];
+                }else{
+                    dp[i][j] = false;
+                }
+            }
+        }
+        return dp[n][m];
+     }
+    
     public static void main(String[] args) {
         int n=5;
         int f[] = new int[n+1];
