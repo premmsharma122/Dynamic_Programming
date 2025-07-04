@@ -262,6 +262,15 @@ public static int coinChange(int coins[], int sum, int dp[][]){
         }
         return dp[n][m];
      }
+    // Catelans Number Code By Recursion ->
+     public static int catelanRec(int n){
+        if(n==0 || n==1) return 1;
+        int ans=0;
+        for(int i=0; i<=n-1; i++){
+            ans+= catelanRec(i) * catelanRec(n-1-i);
+        }
+        return ans;
+     }
     
     public static void main(String[] args) {
         int n=5;
